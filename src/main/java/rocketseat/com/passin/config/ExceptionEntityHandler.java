@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import rocketseat.com.passin.domain.event.exceptions.EventNotFoundException;
-import rocketseat.com.passin.dtos.event.exception.ExceptionHandlerDTO;
+import rocketseat.com.passin.dtos.exception.ExceptionHandlerDTO;
 
 @ControllerAdvice
 public class ExceptionEntityHandler {
