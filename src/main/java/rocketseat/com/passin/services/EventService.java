@@ -69,9 +69,9 @@ public class EventService {
         newAttendee.setEvent(event);
         newAttendee.setCreatedAt(LocalDateTime.now());
 
-        this.attendeeService.registerAttendee(newAttendee);
+        Attendee createdAttendee = this.attendeeService.registerAttendee(newAttendee);
 
-        return new AttendeeIdDTO(newAttendee.getId());
+        return new AttendeeIdDTO(createdAttendee.getId());
     }
 
     private Event getEventById(String eventId) {
