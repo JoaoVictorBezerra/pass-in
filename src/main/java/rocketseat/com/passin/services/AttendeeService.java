@@ -3,6 +3,7 @@ package rocketseat.com.passin.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import rocketseat.com.passin.domain.attendee.Attendee;
+import rocketseat.com.passin.domain.attendee.exceptions.AttendeeAlreadyRegisteredException;
 import rocketseat.com.passin.domain.check_in.CheckIn;
 import rocketseat.com.passin.dtos.attendee.AttendeeDetailDTO;
 import rocketseat.com.passin.dtos.attendee.AttendeeListResponseDTO;
@@ -33,5 +34,17 @@ public class AttendeeService {
         }).toList();
 
         return new AttendeeListResponseDTO(attendeeDetailsList);
+    }
+
+    public Attendee registerAttendee(Attendee newAttendee) {
+        this.attendeeRepository.save(newAttendee);
+        return newAttendee;
+    }
+
+    public void verifyAttendeeRegister(String email, String eventId) {
+        Optional<Attendee> isRegisteredAttendee = this.attendeeRepository.findByEventIdAndEmail(eventId, email);
+        if(isRegisteredAttendee.isPresent()) {
+            throw new AttendeeAlreadyRegisteredException("Attendee already registered");
+        }
     }
 }
