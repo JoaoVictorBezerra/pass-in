@@ -22,6 +22,7 @@ import java.util.Optional;
 public class AttendeeService {
     private final AttendeeRepository attendeeRepository;
     private final CheckInRepository checkInRepository;
+    private final CheckInService checkInService;
 
     public List<Attendee> getAllAttendeesFromEvents(String eventId) {
         return this.attendeeRepository.findByEventId(eventId);
@@ -32,7 +33,7 @@ public class AttendeeService {
 
         List<AttendeeDetailDTO> attendeeDetailsList = attendeeList.stream().map(attendee -> {
             Optional<CheckIn> checkIn = this.checkInRepository.findByAttendeeId(attendee.getId());
-            LocalDateTime checkInAt = checkIn.<LocalDateTime>map(CheckIn::getCreatedAt).orElse(null);
+            LocalDateTime checkInAt = checkIn.map(CheckIn::getCreatedAt).orElse(null);
             return new AttendeeDetailDTO(attendee.getId(), attendee.getName(), attendee.getEmail(), attendee.getCreatedAt(), checkInAt);
         }).toList();
 
@@ -51,12 +52,23 @@ public class AttendeeService {
         }
     }
 
-    public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
-        Attendee attendee = this.attendeeRepository.findById(attendeeId)
+    Attendee getAttendeeById(String attendeeId) {
+        return this.attendeeRepository.findById(attendeeId)
                 .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with ID: " + attendeeId));
+    }
+
+    public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
+        Attendee attendee = this.getAttendeeById(attendeeId);
 
         var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/checkin").buildAndExpand(attendee.getEvent().getId()).toUri().toString();
 
         return new AttendeeBadgeResponseDTO(attendee.getName(), attendee.getEmail(), uri, attendee.getEvent().getId());
+    }
+
+
+
+    public void checkInAttendee(String attendeeId) {
+        Attendee attendee = this.getAttendeeById(attendeeId);
+        this.checkInService.registeredCheckIn(attendee);
     }
 }
