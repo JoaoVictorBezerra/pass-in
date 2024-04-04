@@ -10,10 +10,13 @@ import rocketseat.com.passin.dtos.attendee.AttendeeIdDTO;
 import rocketseat.com.passin.dtos.attendee.AttendeeListResponseDTO;
 import rocketseat.com.passin.dtos.attendee.CreateAttendeeRequestDTO;
 import rocketseat.com.passin.dtos.event.CreateEventRequestDTO;
+import rocketseat.com.passin.dtos.event.EventDetailDTO;
 import rocketseat.com.passin.dtos.event.EventIdDTO;
 import rocketseat.com.passin.dtos.event.EventResponseDTO;
 import rocketseat.com.passin.services.AttendeeService;
 import rocketseat.com.passin.services.EventService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/events")
@@ -27,6 +30,12 @@ public class EventController {
     public ResponseEntity<EventResponseDTO> getEvent(@PathVariable String eventId) {
         EventResponseDTO event = eventService.getEventDetails(eventId);
         return ResponseEntity.ok(event);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<EventDetailDTO>> getEvent() {
+        List<EventDetailDTO> events = eventService.getEventsDetails();
+        return ResponseEntity.ok(events);
     }
 
     @PostMapping

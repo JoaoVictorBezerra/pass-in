@@ -1,7 +1,6 @@
 package rocketseat.com.passin.services;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.stereotype.Service;
 import rocketseat.com.passin.constants.Constants;
 import rocketseat.com.passin.domain.attendee.Attendee;
@@ -11,12 +10,14 @@ import rocketseat.com.passin.domain.event.exceptions.EventNotFoundException;
 import rocketseat.com.passin.dtos.attendee.AttendeeIdDTO;
 import rocketseat.com.passin.dtos.attendee.CreateAttendeeRequestDTO;
 import rocketseat.com.passin.dtos.event.CreateEventRequestDTO;
+import rocketseat.com.passin.dtos.event.EventDetailDTO;
 import rocketseat.com.passin.dtos.event.EventIdDTO;
 import rocketseat.com.passin.dtos.event.EventResponseDTO;
 import rocketseat.com.passin.repositories.EventRepository;
 
 import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +31,17 @@ public class EventService {
         Event event = this.getEventById(eventId);
          List<Attendee> attendeeList = attendeeService.getAllAttendeesFromEvents(eventId);
          return new EventResponseDTO(event, attendeeList.size());
+    }
+
+    public List<EventDetailDTO> getEventsDetails() {
+        List<Event> events = this.eventRepository.findAll();
+        List<EventDetailDTO> eventList = new ArrayList<>();
+        events.forEach(event -> {
+            List<Attendee> attendeeList = attendeeService.getAllAttendeesFromEvents(event.getId());
+            EventDetailDTO eventDetailDTO = new EventDetailDTO(event.getId(), event.getTitle(), event.getDetails(), event.getSlug(), event.getMaximumAttendees(), attendeeList.size());
+            eventList.add(eventDetailDTO);
+        });
+        return eventList;
     }
 
     public EventIdDTO createEvent(CreateEventRequestDTO body) {
