@@ -3,6 +3,7 @@ package rocketseat.com.passin.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+import rocketseat.com.passin.constants.Constants;
 import rocketseat.com.passin.domain.attendee.Attendee;
 import rocketseat.com.passin.domain.attendee.exceptions.AttendeeAlreadyRegisteredException;
 import rocketseat.com.passin.domain.attendee.exceptions.AttendeeNotFoundException;
@@ -48,13 +49,13 @@ public class AttendeeService {
     public void verifyAttendeeRegister(String email, String eventId) {
         Optional<Attendee> isRegisteredAttendee = this.attendeeRepository.findByEventIdAndEmail(eventId, email);
         if(isRegisteredAttendee.isPresent()) {
-            throw new AttendeeAlreadyRegisteredException("Attendee already registered with e-mail: " + email);
+            throw new AttendeeAlreadyRegisteredException(Constants.ATTENDEE_ALREADY_REGISTERED + email);
         }
     }
 
     Attendee getAttendeeById(String attendeeId) {
         return this.attendeeRepository.findById(attendeeId)
-                .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with ID: " + attendeeId));
+                .orElseThrow(() -> new AttendeeNotFoundException(Constants.ATTENDEE_NOT_FOUND + attendeeId));
     }
 
     public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
