@@ -1,7 +1,9 @@
 package rocketseat.com.passin.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import rocketseat.com.passin.dtos.attendee.AttendeeIdDTO;
@@ -16,6 +18,7 @@ import rocketseat.com.passin.services.EventService;
 @RestController
 @RequestMapping("/events")
 @RequiredArgsConstructor
+@Validated
 public class EventController {
     private final EventService eventService;
     private final AttendeeService attendeeService;
@@ -27,11 +30,9 @@ public class EventController {
     }
 
     @PostMapping
-    public ResponseEntity<EventIdDTO> createEvent(@RequestBody CreateEventRequestDTO body, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EventIdDTO> createEvent(@Valid @RequestBody CreateEventRequestDTO body, UriComponentsBuilder uriComponentsBuilder) {
         EventIdDTO eventIdDTO = this.eventService.createEvent(body);
-
         var uri = uriComponentsBuilder.path("/events/{eventId}").buildAndExpand(eventIdDTO.eventId()).toUri();
-
         return ResponseEntity.created(uri).body(eventIdDTO);
     }
 
@@ -42,11 +43,9 @@ public class EventController {
     }
 
     @PostMapping("/{eventId}/attendees")
-    public ResponseEntity<AttendeeIdDTO> registerAttendeeOnEvent(@PathVariable String eventId, @RequestBody CreateAttendeeRequestDTO createAttendeeRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<AttendeeIdDTO> registerAttendeeOnEvent(@PathVariable String eventId, @Valid @RequestBody CreateAttendeeRequestDTO createAttendeeRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
         AttendeeIdDTO attendeeIdDTO = this.eventService.registerAttendeeOnEvent(eventId, createAttendeeRequestDTO);
-
         var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.id()).toUri();
-
         return ResponseEntity.created(uri).body(attendeeIdDTO);
     }
 }
