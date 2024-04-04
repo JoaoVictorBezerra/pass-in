@@ -20,7 +20,7 @@ public class ExceptionEntityHandler {
 
     @ExceptionHandler(AttendeeAlreadyRegisteredException.class)
     public ResponseEntity<ExceptionHandlerDTO> handleAttendeeAlreadyRegistered(AttendeeAlreadyRegisteredException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionHandlerDTO(exception.getMessage(), HttpStatus.BAD_REQUEST.value()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionHandlerDTO(exception.getMessage(), HttpStatus.BAD_REQUEST.value()));
     }
 
     @ExceptionHandler(EventFullException.class)
@@ -35,6 +35,6 @@ public class ExceptionEntityHandler {
 
     @ExceptionHandler(CheckInAlreadyDoneException.class)
     public ResponseEntity<ExceptionHandlerDTO> handleCheckInAlreadyDone(CheckInAlreadyDoneException exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionHandlerDTO(exception.getMessage(), HttpStatus.BAD_REQUEST.value()));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionHandlerDTO(exception.getMessage(), HttpStatus.BAD_REQUEST.value()));
     }
 }
