@@ -14,7 +14,7 @@ This project follow an [MVC Architecture](https://www.ramotion.com/blog/mvc-arch
 ##### Documentation 📖
 The documentation provides a comprehensive overview of pass.in API, facilitating understanding and integration for developers and users alike.
 The documentation is crafted using Postman Collection, a powerful tool that gives access to consume RESTful web services.
-
+You can view the collection here.
 ##### Settings ⚙️
 To start the project you should configure project settings. You can configure database as you need to run project 
 ```properties

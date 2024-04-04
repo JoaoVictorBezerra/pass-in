@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "21caa4ed-69d5-4b3d-99fd-c474ecee4c4f",
+		"name": "Pass.in - RESTFul API",
+		"description": "### 🚀 Get started here\n\nThis collection guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n### 🔖 How to use this collection\n\n#### Step 1: Send requests\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods. This collection contains each of these request types. Open each request and click \"Send\" to see what happens.\n\n#### Step 2: View responses\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### Step 3: Send new Body data\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT and PATCH requests.\n\n``` json\n{  \n\"name\": \"Add your name in the body\"  \n}\n\n ```\n\n#### Step 4: Update the variable\n\nVariables enable you to store and reuse values in Postman. We have created a variable called base_url with the sample request [http://localhost:8080](http://localhost:8080). Replace it with your API endpoint to customize this collection.\n\n```\nbase_url: <a class=&#x27;preserveHtml&#x27; class=&#x27;preserveHtml&#x27;  rel=\"noreferrer noopener nofollow\" href=\"http://localhost:8080\" target=\"_blank\" url=\"http://localhost:8080\">http://localhost:8080</a> or API Address\n\n ```\n\n### 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n\n### ℹ️ Resources\n\n- [Building requests](https://learning.postman.com/docs/sending-requests/requests/)\n- [Authorizing requests](https://learning.postman.com/docs/sending-requests/authorization/)\n- [Using variables](https://learning.postman.com/docs/sending-requests/variables/)\n- [Managing environments](https://learning.postman.com/docs/sending-requests/managing-environments/)\n- [Writing scripts](https://learning.postman.com/docs/writing-scripts/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26780478",
+		"_collection_link": "https://www.postman.com/jvic01/workspace/auroraodyssey/collection/26780478-21caa4ed-69d5-4b3d-99fd-c474ecee4c4f?action=share&source=collection_link&creator=26780478"
+	},
+	"item": [
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "c9206c58-8b09-46ef-9685-f49aac20d375",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Joao's Event\",\n    \"details\": \"Let's learn Java\",\n    \"maximumAttendees\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Participant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "c9206c58-8b09-46ef-9685-f49aac20d375",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Joao Victor Bezerra\",\n    \"email\": \"dev.joaovictor@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/be40e6ce-4149-4851-ae51-c82d6ec1e771/attendees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"be40e6ce-4149-4851-ae51-c82d6ec1e771",
+								"attendees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "c9206c58-8b09-46ef-9685-f49aac20d375",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/be40e6ce-4149-4851-ae51-c82d6ec1e771",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"be40e6ce-4149-4851-ae51-c82d6ec1e771"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Events Details Attendees",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Bearer",
+								"value": "c9206c58-8b09-46ef-9685-f49aac20d375",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/1/attendees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								"1",
+								"attendees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attendee",
+			"item": [
+				{
+					"name": "Attendee Badge",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendees/ae03aee7-3b76-4ce2-8288-4d2f7d8680a1/badge",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"attendees",
+								"ae03aee7-3b76-4ce2-8288-4d2f7d8680a1",
+								"badge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Attendee CheckIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendees/ae03aee7-3b76-4ce2-8288-4d2f7d8680a1/checkin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"attendees",
+								"ae03aee7-3b76-4ce2-8288-4d2f7d8680a1",
+								"checkin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		}
+	]
+}
